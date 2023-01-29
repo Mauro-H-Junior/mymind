@@ -1,0 +1,98 @@
+{% load static %}
+
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Mind</title>
+
+    <link rel="stylesheet" href="{% static 'pessoa/css/css.css' %}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="center">
+		<h1 id="titulo">My Mind</h1>
+	</div>
+
+    <div class="center">
+        <a target="_blank"class="btn btn-danger" href="http://wa.me/5531999856520" role="button">BOTAO DE EMERGENCIA </a>
+    </div>
+
+    <div class="container">
+
+        <form action="{% url 'home' %}" method="POST">{% csrf_token %}
+
+            {% if messages %}
+                <br>
+                {% for message in messages %}
+                    <div class="alert {{message.tags}}">
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <br>
+            <span>Nome:</span>
+            <input type="text" class="form-control"  name="nome" placeholder="Nome...">
+            <br>
+            <span>Acontecimento Negativo:</span>
+            <textarea class="form-control" name="acontecimento_negativo" placeholder="Um acontecimento negativo..."></textarea>
+            <br>
+            <span>Acontecimento Positivo:</span>
+            <textarea class="form-control" name="acontecimento_positivo" placeholder="Um acontecimento positivo..."></textarea>
+            <br>
+            <select name="estado_mental" multiple class="form-select">
+                {%for i in estado%}
+                    <option value="{{i.0}}" >{{i.1}}</option>
+                {% endfor %} 
+            </select>
+            <br>
+            <select name="estado_mental" multiple class="form-select">
+                {%for i in alerta%}
+                    <option value="{{i.0}}" >{{i.1}}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <br>
+            <span>Data do Acontecimento:</span>
+            <textarea class="form-control" name="data_acontecimento" placeholder="Quando começou..."></textarea>
+            <br>
+            <span>Data da Superação:</span>
+            <textarea class="form-control" name="data_superaçao" placeholder="Quando acabou..."></textarea>
+            <br>
+
+            <input type="submit" value="ENVIAR" class="btn-custom-primary">
+        </form>
+        
+<div class="container">
+    <!-- alteracao mauro visualizar resgistros -->
+    {% for registro in registros %}
+    <hr>
+    <span><b>Acontecimento Negativo:</b> </span>{{registro.acontecimento_negativo}}<br> 
+    
+    <span><b>Acontecimento Positivo:</b></span>{{registro.acontecimento_positivo}}<br>
+   
+    <span><b>Estado Mental: </b></span>{{registro.get_estado_mental_display}}<br>
+   
+    <span><b>Alerta Crise: </b></span>{{registro.get_alerta_crises_display}} <br>
+    
+    <span><b>Data Atual: </b></span> {{registro.data_atual}} <br>
+  
+    <span><b>Data Acontecimento: </b></span> {{registro.data_acontecimento}} <br>
+    
+    <span><b>Data Superação: </b></span> {{registro.data_superaçao}} <br>
+    
+    
+    {% endfor %}
+ 
+    
+        </div>
+ 
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+
+</html>

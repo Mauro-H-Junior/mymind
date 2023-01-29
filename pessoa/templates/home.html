@@ -1,6 +1,7 @@
 {% load static %}
 
 <html lang="pt-br">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,17 +9,19 @@
 
     <link rel="stylesheet" href="{% static 'pessoa/css/css.css' %}">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
     <div class="center">
-		<h1 id="titulo">My Mind</h1>
-	</div>
+        <h1 id="titulo">My Mind</h1>
+    </div>
 
     <div class="center">
-        <a target="_blank"class="btn btn-danger" href="http://wa.me/5531999856520" role="button">BOTAO DE EMERGENCIA </a>
+        <a target="_blank" class="btn btn-danger" href="http://wa.me/5531999856520" role="button">BOTÃO DE EMERGÊNCIA
+        </a>
     </div>
 
     <div class="container">
@@ -29,70 +32,115 @@
                 <br>
                 {% for message in messages %}
                     <div class="alert {{message.tags}}">
-                        {{message}}
+                    {{message}}
                     </div>
                 {% endfor %}
             {% endif %}
+            
             <br>
-            <span>Nome:</span>
-            <input type="text" class="form-control"  name="nome" placeholder="Nome...">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" id="nome" name="nome">
+            </div>
+
             <br>
-            <span>Acontecimento Negativo:</span>
-            <textarea class="form-control" name="acontecimento_negativo" placeholder="Um acontecimento negativo..."></textarea>
+
+            <div class="form-group">
+                <label for="acontecimento_negativo">Acontecimento Negativo:</label>
+                <textarea class="form-control" id="acontecimento_negativo"
+                    name="acontecimento_negativo"></textarea>
+            </div>
+
             <br>
-            <span>Acontecimento Positivo:</span>
-            <textarea class="form-control" name="acontecimento_positivo" placeholder="Um acontecimento positivo..."></textarea>
+
+            <div class="form-group">
+                <label for="acontecimento_positivo">Acontecimento Positivo:</label>
+                <textarea class="form-control" id="acontecimento_positivo"
+                    name="acontecimento_positivo"></textarea>
+            </div>
+
             <br>
-            <select name="estado_mental" multiple class="form-select">
-                {%for i in estado%}
-                    <option value="{{i.0}}" >{{i.1}}</option>
-                {% endfor %} 
-            </select>
+
+            <div class="form-group">
+                <label for="estado_mental">Selecione o seu estado mental atual:</label>
+                <select class="form-control" id="estado_mental" name="estado_mental">
+                    {% for estado in estados %}
+                    <option value="{{ estado.0 }}">{{ estado.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
             <br>
-            <select name="estado_mental" multiple class="form-select">
-                {%for i in alerta%}
-                    <option value="{{i.0}}" >{{i.1}}</option>
+            <br>
+            <br>
+
+            <span>Selecione o seu estado estado de crise:</span>
+            <select name="alerta_crises" class="form-select">
+                {% for alerta in alertas %}
+                    <option value="{{alerta.0}}">{{alerta.1}}</option>
                 {% endfor %}
             </select>
             <br>
             <br>
             <span>Data do Acontecimento:</span>
-            <textarea class="form-control" name="data_acontecimento" placeholder="Quando começou..."></textarea>
+            <input type="date" class="form-control" name="data_acontecimento" placeholder="Quando começou...">
             <br>
             <span>Data da Superação:</span>
-            <textarea class="form-control" name="data_superaçao" placeholder="Quando acabou..."></textarea>
+            <input type="date" class="form-control" name="data_superacao" placeholder="Quando acabou...">
             <br>
-
+    
             <input type="submit" value="ENVIAR" class="btn-custom-primary">
         </form>
         
-<div class="container">
-    <!-- alteracao mauro visualizar resgistros -->
-    {% for registro in registros %}
-    <hr>
-    <span><b>Acontecimento Negativo:</b> </span>{{registro.acontecimento_negativo}}<br> 
-    
-    <span><b>Acontecimento Positivo:</b></span>{{registro.acontecimento_positivo}}<br>
-   
-    <span><b>Estado Mental: </b></span>{{registro.get_estado_mental_display}}<br>
-   
-    <span><b>Alerta Crise: </b></span>{{registro.get_alerta_crises_display}} <br>
-    
-    <span><b>Data Atual: </b></span> {{registro.data_atual}} <br>
-  
-    <span><b>Data Acontecimento: </b></span> {{registro.data_acontecimento}} <br>
-    
-    <span><b>Data Superação: </b></span> {{registro.data_superaçao}} <br>
-    
-    
-    {% endfor %}
- 
-    
         </div>
- 
+
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Acontecimento Negativo</th>
+            <th scope="col">Acontecimento Positivo</th>
+            <th scope="col">Estado Mental</th>
+            <th scope="col">Alerta de Crise</th>
+            <th scope="col">Data do Acontecimento</th>
+            <th scope="col">Data da Superação</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for registro in registros %}
+          <tr>
+            <td>{{ registro.nome }}</td>
+            <td>{{ registro.acontecimento_negativo }}</td>
+            <td>{{ registro.acontecimento_positivo }}</td>
+            <td>{{ registro.get_estado_mental_display }}</td>
+            <td>{{ registro.get_alerta_crises_display }}</td>
+            <td>{{ registro.data_acontecimento }}</td>
+            <td>{{ registro.data_superacao }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    <script>
+
+    // Obtém a data atual
+    var currentDate = new Date();
+    // Define a data mínima como 1990
+    currentDate.setFullYear(1990);
+    // Formata a data como yyyy-mm-dd
+    var minDate = currentDate.toISOString().slice(0,10);
+    // Obtém a data atual
+    var currentDate = new Date();
+    // Formata a data como yyyy-mm-dd
+    var maxDate = currentDate.toISOString().slice(0,10);
+    // Define as datas mínima e máxima nos elementos de entrada
+    document.querySelector("input[name='data_acontecimento']").min = minDate;
+    document.querySelector("input[name='data_acontecimento']").max = maxDate;
+    document.querySelector("input[name='data_superaçao']").min = minDate;
+    document.querySelector("input[name='data_superaçao']").max = maxDate;
+    </script>
 </body>
 
 </html>

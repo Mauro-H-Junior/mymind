@@ -7,21 +7,21 @@ def listar_monitoramento(request):
 
     if request.method == 'GET':
         registros = Pessoa.objects.all()
-        estado = Pessoa.avaliacao_diaria
-        alerta = Pessoa.alertas_crises
+        estados = Pessoa.avaliacao_diaria
+        alertas = Pessoa.alertas_crises
         
-        print(alerta)
-        return render(request,'home.html', {'registros': registros, 'estado': estado, 'alerta': alerta })
+        return render(request,'home.html', {'registros': registros, 'estados': estados, 'alertas': alertas })
 
     elif request.method == "POST":
 
         nome = request.POST.get('nome')
         acontecimento_negativo = request.POST.get('acontecimento_negativo')
         acontecimento_positivo = request.POST.get('acontecimento_positivo')
-        estado_mental = request.POST.getlist('estado_mental')
-        alerta_crises = request.POST.getlist('alerta_crises')
+        estado_mental = request.POST.getlist('estado_mental')[0]
+        alerta_crises = request.POST.getlist('alerta_crises')[0]
         data_acontecimento = request.POST.get('data_acontecimento')
-        data_superaçao = request.POST.get('data_superaçao')
+        data_superacao = request.POST.get('data_superacao')
+                                          
 
         atendimento = Pessoa(
             nome = nome,
@@ -30,7 +30,7 @@ def listar_monitoramento(request):
             estado_mental = estado_mental,
             alerta_crises = alerta_crises,
             data_acontecimento = data_acontecimento,
-            data_superaçao = data_superaçao,
+            data_superacao = data_superacao,
 
         )
 

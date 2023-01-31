@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from pessoa.models import Pessoa
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def listar_monitoramento(request):
 
     if request.method == 'GET':

@@ -1,0 +1,14 @@
+
+{% extends 'base.html' %}
+{% block conteudo %}
+{% load crispy_forms_tags %}
+
+<div class='container' style="padding:30px">
+    <h1>Você saiu do sistema</h1>
+    <form action="" method="POST">
+     {% csrf_token %}
+     <a href="{% url 'login' %}">Fazer login novamente</a>
+       </form> 
+</div>
+
+{% endblock %}

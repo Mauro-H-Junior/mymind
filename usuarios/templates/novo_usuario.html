@@ -1,0 +1,17 @@
+
+{% extends 'base.html' %}
+{% block conteudo %}
+{% load crispy_forms_tags %}
+
+<div class='container'>
+    <h1>FAVOR, PREENCHA OS DADOS SOLICITADOS</h1>
+    <form action="" method="POST">
+     {% csrf_token %}
+     {{formulario | crispy}}
+     <button class="btn btn-primary" type='submit'>Criar Usuário</button>
+     <a href="{% url 'login' %}">Já possui uma conta? Entre aqui</a>
+       </form> 
+</div>
+
+{% endblock %}
+

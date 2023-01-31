@@ -27,7 +27,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pessoa'
+    'pessoa',
+    'usuarios',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +128,6 @@ MESSAGE_TAGS = {
     constants.WARNING: 'alert-warning',
 }
 
+CRISPY_TEMPLATE_PACK='bootstrap4'
+LOGIN_REDIRECT_URL = 'atendimento'
+LOGIN_URL = 'login'
